@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Selling car prediction</title>
+</head>
+
+<body>
+
+    <div class="topnav">
+        <a class="active" href="#home">Home</a>
+        <a href="https://www.linkedin.com/in/sachin-aware-955274a4/">LinkedIn Profile</a>
+        <a href="https://github.com/saaware">GitHub Repository</a>
+        
+        <button id="myBtn" style ="margin-top: 6px; margin-left: 28px; background-color: #e1e10c;width: 166px;height: 36px;">Predict My Car Sell value</button>
+
+      </div>
+      
+      <div style="padding-left:16px">
+        <h2 style="color: #005680;">Find out your car sell value with the help of Machine Learning</h2>
+        <p style="    color: #771b1b;">It will predict the car sell value based on provided market data samples.</p>
+      </div>
+
+     
+           <!--Start slideshow images-->     
+        <div class="slideshow-container">
+
+        <div class="mySlides fade">
+      <div class="numbertext">1 / 5</div>
+      <image src="{{url_for('static',filename='Images/Tata.jpg')}}" style="width:100%"></image>
+      <div class="text"></div>
+      </div>
+    
+      <div class="mySlides fade">
+      <div class="numbertext">2 / 5</div>
+      <image src="{{url_for('static',filename='Images/abc5.jpg')}}" style="width:100%"></image>
+      <div class="text"></div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 5</div>
+        <image src="{{url_for('static',filename='Images/abc8.jpg')}}" style="width:100%"></image>
+        <div class="text"></div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">4 / 5</div>
+            <image src="{{url_for('static',filename='Images/abc6.jpg')}}" style="width:100%"></image>
+            <div class="text">/div>
+            </div>
+
+           
+
+      </div>
+      <br>
+    
+      <div style="text-align:center">
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+      </div>
+     <!--end slideshow images-->
+     
+     <!-- The Modal -->
+     <div id="myModal" class="modal">
+
+     <!-- Modal content -->
+      <div class="modal-content">
+     <span class="close">&times;</span>
+    
+      <!--From here user inputs form started-->
+
+
+     <form action="{{ url_for('car_Sale_Predict')}}" method="post" style="background-color: aliceblue;">
+        <div class="form-row">
+          <div >
+            <label for="inputEmail4">Car Purchase year</label>
+            <input  name="Year" required="required" placeholder="Like 2013 ,2008,2019" style='margin-left: 147px; color: #0028ff;width: 137px;height: 33px;'>
+          </div>
+          <br> <br>
+          <div >
+            <label >Present showroom Price (in Lacs)</label>
+            <input name="present_price" required="required" placeholder="like 6 ,5,10" style='margin-left: 25px; color: #0028ff;width: 137px;height: 33px;'>
+          </div>
+        </div>
+        <br> <br>
+        <div >
+          <label >How much Kms car completed yet</label>
+          <input  name="Kms_Driven" required="required" placeholder="like 2000, 40000" style='margin-left: 20px; color: #0028ff;width: 137px;height: 33px;'>
+        </div>
+        <br> <br>
+        <div >
+          <label >How many Car Owners changed </label>
+          <input  name="Owner" required="required" placeholder="like 1 ,2 ,3" style='margin-left: 37px; color: #0028ff;width: 137px;height: 33px;'>
+        </div>
+        <br> <br>
+        <div style ="margin-left: 503px;margin-top: -164px;">
+            <lable>Fuel Type</lable>
+        <select name="Fuel_Type" id="fuel" required="required" style="background-color: darkseagreen;height: 31px;width: 99px;">
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="CNG">CNG</option>
+         </select>
+        </div>
+        <div style ="margin-left: 722px;margin-top: -30px;">
+            <lable>Car seller</lable>
+            <select name="Seller_Type" id="resea" required="required" style="background-color: darkseagreen;height: 31px;width: 99px;">
+                <option value="Dealer">Dealer</option>
+                <option value="Individual">Individual</option>
+             </select>
+        </div>
+        <div style="margin-left: 953px;margin-top: -29px;">
+            <lable>Transmission</lable>
+            <select name="Transmission" id="research" required="required" style="background-color: darkseagreen;height: 31px;width: 99px;">
+                <option value="Mannual">Manual Car</option>
+                <option value="Automatic">Automatic Car</option>
+             </select>
+        </div>
+    
+        <button id="sub" type="submit"  style="margin-top: 145px;margin-left: 534px;background-color: #11a7e6;height: 35px;width: 143px;">Predict car sell price</button>
+      </form>
+
+     
+      </div>
+      </div>
+
+      </div>
+  
+    
+
+     <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
+        
+<script>
+    var slideIndex = 0;
+    showSlides();
+    
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+    </script>
+</body>
+</html>
